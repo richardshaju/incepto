@@ -5,7 +5,7 @@ import { Input } from "../components/ui/Input";
 import Navabar from "../components/Navabar";
 import { Textarea } from "../components/ui/Textarea";
 
-function page() {
+function Page() {
   const [position, setPosition]:any = useState({ latitude: 223, longitude: 23 });
   const [location, setLocation]:any = useState({})
 
@@ -57,4 +57,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
