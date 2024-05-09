@@ -2,23 +2,10 @@
 
 import React,{useEffect,useState} from "react";
 import { Input } from "../components/ui/Input";
-import Navabar from "../components/Navabar";
+import Navabar from "../components/Navbar";
 import { Textarea } from "../components/ui/Textarea";
-import {
-    setKey,
-    setDefaults,
-    setLanguage,
-    setRegion,
-    fromAddress,
-    fromLatLng,
-    fromPlaceId,
-    setLocationType,
-    geocode,
-    RequestType,
-  } from "react-geocode";
-  
 
-function page() {
+function Page() {
 
     const [position, setPosition] = useState({ latitude:223, longitude: 23 });
 
@@ -48,10 +35,6 @@ function page() {
           <Input className="w-[31rem]" placeholder="Name" type="Name" />
           <Input className="w-[31rem]" placeholder="Email" type="email" />
           <Input className="w-[31rem]" placeholder="Password" type="password" />
-         
-        
-
-      
           <button className="bg-blue-500 text-white px-4 py-2 rounded-md">Sign Up</button>
           <text className="text-blue-500">Already have an account? <a href="/signin">Log in</a></text>
         </div>
@@ -60,5 +43,5 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
 
