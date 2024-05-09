@@ -20,9 +20,9 @@ export default function Home() {
         <p className="text-3xl">Food available near you</p>
       </div>
       <div>
-        <div className="grid md:grid-cols-3 p-5 justify-items-center">
+        <div className="grid md:grid-cols-3 p-5 gap-y-7 justify-items-center">
           {images.map((data, idx) => (
-            <div className="card h-[18rem] w-[27rem]  rounded bg-base-100 shadow-xl flex ">
+            <div key={idx} className="card h-[18rem] w-[27rem]  rounded bg-base-100 shadow-xl flex flex-row">
               <div className="w-[50%] my-5 items-center flex flex-col justify-between">
                 <img
                   src={data}

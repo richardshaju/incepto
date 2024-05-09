@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   }
 
 
-  export const fetchLocation = (): Promise<Position> => {
+  export const fetchLocation = (): any => {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
         reject(new Error('Geolocation is not supported by your browser'));

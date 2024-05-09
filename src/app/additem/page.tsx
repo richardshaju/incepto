@@ -1,26 +1,14 @@
-"use client"
+"use client";
 
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "../components/ui/Input";
 import Navabar from "../components/Navabar";
 import { Textarea } from "../components/ui/Textarea";
-import {
-    setKey,
-    setDefaults,
-    setLanguage,
-    setRegion,
-    fromAddress,
-    fromLatLng,
-    fromPlaceId,
-    setLocationType,
-    geocode,
-    RequestType,
-  } from "react-geocode";
-  
 
-function page() {
-
-    const [position, setPosition] = useState({ latitude:223, longitude: 23 });
+function Page() {
+  // Renamed to start with an uppercase letter
+  const [position, setPosition] = useState({ latitude: 223, longitude: 23 });
+  const [location, setLocation]: any = useState();
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -30,12 +18,25 @@ function page() {
           longitude: position.coords.longitude,
         });
         console.log(position);
-        
       });
     } else {
       console.log("Geolocation is not available in your browser.");
     }
   }, []);
+
+  useEffect(() => {
+    fetch(
+      `https://nominatim.openstreetmap.org/reverse?lat=${position.latitude}&lon=${position.longitude}&format=json&${Date.now()}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setLocation(data?.address.suburb);
+        console.log(data?.address.suburb);
+      })
+      .catch((error) => {
+        console.error("Error fetching reverse geocode data:", error);
+      });
+  }, [position]);
 
   return (
     <div>
@@ -46,14 +47,16 @@ function page() {
         </div>
         <div className="flex gap-5 flex-col">
           <Input className="w-[31rem]" placeholder="Title" type="title" />
-          <Textarea  className="w-[31rem]" placeholder="Tasty biriyani"  />
+          <Textarea className="w-[31rem]" placeholder="Tasty biriyani" />
           <Input className="w-[31rem]" placeholder="location" type="textarea" />
           <Input className="w-[31rem]" placeholder="Mobile" type="title" />
-
+          <div>
+          {location ? location : ""}
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default page;
+export default Page;

@@ -1,3 +1,4 @@
+
 "use client"
 
 import React,{useEffect,useState} from "react";
@@ -60,5 +61,6 @@ function page() {
   );
 }
 
-export default page;
+
+export default Page;
 
