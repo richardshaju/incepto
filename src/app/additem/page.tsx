@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Input } from "../components/ui/input";
+import { Input } from "../components/ui/Input";
 import Navabar from "../components/Navabar";
 import { Textarea } from "../components/ui/Textarea";
 
