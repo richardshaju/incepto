@@ -6,7 +6,7 @@ import Navabar from "../components/Navabar";
 import { Textarea } from "../components/ui/Textarea";
 
 function page() {
-  const [position, setPosition] = useState({ latitude: 223, longitude: 23 });
+  const [position, setPosition]:any = useState({ latitude: 223, longitude: 23 });
   const [location, setLocation]:any = useState({})
 
 
