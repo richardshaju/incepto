@@ -19,7 +19,7 @@ import {
   } from "react-geocode";
   
 
-function page() {
+function Page() {
 
     const [position, setPosition] = useState({ latitude:223, longitude: 23 });
 
