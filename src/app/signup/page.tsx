@@ -1,4 +1,3 @@
-
 "use client"
 
 import React,{useEffect,useState} from "react";
@@ -39,11 +38,11 @@ function page() {
   }, []);
 
   return (
-    <div >
+    <div>
       <Navabar />
       <div className="p-10 items-center flex flex-col justify-center h-[40rem]">
         <div>
-          <h1 className="text-3xl mb-4">Log In</h1>
+          <h1 className="text-3xl mb-4">Sign Up</h1>
         </div>
         <div className="flex gap-5 flex-col items-center">
           <Input className="w-[31rem]" placeholder="Name" type="Name" />
@@ -53,14 +52,13 @@ function page() {
         
 
       
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-md">Log In</button>
-          <text className="text-blue-500">Don't have an account? <a href="/signup">Sign Up</a></text>
+          <button className="bg-blue-500 text-white px-4 py-2 rounded-md">Sign Up</button>
+          <text className="text-blue-500">Already have an account? <a href="/signin">Log in</a></text>
         </div>
       </div>
     </div>
   );
 }
 
-
-export default Page;
+export default page;
 
