@@ -7,7 +7,7 @@ import { Textarea } from "../components/ui/Textarea";
 
 function Page() { // Renamed to start with an uppercase letter
   const [position, setPosition] = useState({ latitude: 223, longitude: 23 });
-  const [location, setLocation] = useState({});
+  const [location, setLocation]:any = useState();
 
   useEffect(() => {
     fetch(
@@ -51,7 +51,7 @@ function Page() { // Renamed to start with an uppercase letter
           <Textarea className="w-[31rem]" placeholder="Tasty biriyani" />
           <Input className="w-[31rem]" placeholder="location" type="textarea" />
           <Input className="w-[31rem]" placeholder="Mobile" type="title" />
-          
+          {location ? location : ""}
         </div>
       </div>
     </div>
