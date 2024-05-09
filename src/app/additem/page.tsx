@@ -9,21 +9,7 @@ function Page() { // Renamed to start with an uppercase letter
   const [position, setPosition] = useState({ latitude: 223, longitude: 23 });
   const [location, setLocation]:any = useState();
 
-  useEffect(() => {
-    fetch(
-      `https://nominatim.openstreetmap.org/reverse?lat=${position.latitude}&lon=${position.longitude}&format=json`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setLocation(data.address.suburb);
-        console.log(data.address.suburb);
-      })
-      .catch((error) => {
-        console.error("Error fetching reverse geocode data:", error);
-      });
-      console.log(location);
-      
-  }, [position]);
+  
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -38,6 +24,22 @@ function Page() { // Renamed to start with an uppercase letter
       console.log("Geolocation is not available in your browser.");
     }
   }, []);
+
+  useEffect(() => {
+    fetch(
+      `https://nominatim.openstreetmap.org/reverse?lat=${position.latitude}&lon=${position.longitude}&format=json`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setLocation(data.address.suburb);
+        console.log(data.address.suburb);
+      })
+      .catch((error) => {
+        console.error("Error fetching reverse geocode data:", error);
+      });
+      
+      
+  }, [position]);
 
   return (
     <div>
