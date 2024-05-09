@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import Navabar from "./components/Navabar";
+import Navabar from "./components/Navbar";
 import { FaLocationDot } from "react-icons/fa6";
 import { BsCart2 } from "react-icons/bs";
 

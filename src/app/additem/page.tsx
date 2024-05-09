@@ -1,59 +1,95 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import { Input } from "../components/ui/Input";
-import Navabar from "../components/Navabar";
+// Fixed typo in component import
 import { Textarea } from "../components/ui/Textarea";
+import geocodeAddress from "../lib/utils";
+import FileBase from "react-file-base64";
+import Navbar from "../components/Navbar";
 
 function Page() {
+  const [postData, setPostData] = useState({
+    title: "",
+    description: "", // 
+    location: "",
+    mobile: "", //
+    image: "",
+  });
+
   // Renamed to start with an uppercase letter
-  const [position, setPosition] = useState({ latitude: 223, longitude: 23 });
-  const [location, setLocation]: any = useState();
+  const [address, setAddress] = useState("");
+  const [coordinates, setCoordinates] = useState({
+    latitude: 0, // Changed default latitude value
+    longitude: 0, // Changed default longitude value
+  });
+  const [error, setError] = useState("");
 
-  useEffect(() => {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        setPosition({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
-        console.log(position);
-      });
-    } else {
-      console.log("Geolocation is not available in your browser.");
+  const handleAddressSubmit = async (address: any) => {
+    // Removed type annotation for address
+    try {
+      const { latitude, longitude } = await geocodeAddress(address);
+      setCoordinates({ latitude, longitude });
+      setError("");
+      console.log(coordinates);
+    } catch (error) {
+      setError("Could not find coordinates for the provided address.");
     }
-  }, []);
+  };
 
-  useEffect(() => {
-    fetch(
-      `https://nominatim.openstreetmap.org/reverse?lat=${position.latitude}&lon=${position.longitude}&format=json&${Date.now()}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setLocation(data?.address.suburb);
-        console.log(data?.address.suburb);
-      })
-      .catch((error) => {
-        console.error("Error fetching reverse geocode data:", error);
-      });
-  }, [position]);
+  const handleSaveData = async () => {
+    const response = await fetch("/api/postfood", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data: postData }),
+    });
+
+    if (response.ok) {
+      alert("Data saved successfully!");
+    } else {
+      alert("Something went wrong!");
+    }
+  };
 
   return (
     <div>
-      <Navabar />
-      <div className="p-10">
-        <div>
-          <h1 className="text-3xl mb-4">Add your food item</h1>
-        </div>
-        <div className="flex gap-5 flex-col">
-          <Input className="w-[31rem]" placeholder="Title" type="title" />
-          <Textarea className="w-[31rem]" placeholder="Tasty biriyani" />
-          <Input className="w-[31rem]" placeholder="location" type="textarea" />
-          <Input className="w-[31rem]" placeholder="Mobile" type="title" />
-          <div>
-          {location ? location : ""}
-          </div>
-        </div>
+      <Navbar /> {/* Fixed component name */}
+      <div className="w-[50%] p-6 flex flex-col gap-5">
+        <Input
+          value={postData.title}
+          placeholder="Title of the food"
+          onChange={(e) => setPostData({ ...postData, title: e.target.value })}
+        />
+        <Textarea
+          value={postData.description}
+          placeholder="Description"
+          onChange={(e) =>
+            setPostData({ ...postData, description: e.target.value })
+          }
+        />
+        <Input
+          value={postData.location}
+          placeholder="Location"
+          onChange={(e) =>
+            setPostData({ ...postData, location: e.target.value })
+          }
+        />
+        <Input
+          value={postData.mobile}
+          placeholder="Mobile"
+          onChange={(e) => setPostData({ ...postData, mobile: e.target.value })}
+        />
+        <FileBase
+          type="file"
+          multiple={false}
+          placeholder="Image"
+          onDone={({ base64 }: any) =>
+            setPostData({ ...postData, image: base64 })
+          }
+        />
+        <button onClick={handleSaveData}>Save Data</button>
+        {error && <p>{error}</p>}
       </div>
     </div>
   );
