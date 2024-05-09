@@ -15,7 +15,7 @@ import React from "react";
 //     }
 //   }
   
-function page() {
+function Page() {
 //   const [otp, setOtp] = useState("");
 //   const [ph, setPh] = useState("");
 //   const [loading, setLoading] = useState(false);
@@ -81,4 +81,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
